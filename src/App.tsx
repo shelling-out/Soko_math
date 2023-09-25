@@ -12,8 +12,11 @@ const App : React.FC  = () =>{
         /group/:id => {group}(
           sidebar , createPost , posts , users
           choose from sidebar dynamic {based on param} (members , posts , users , groupInfo )
+
+          when choosing members-> 
+            /group/:id/members?type='group'&status=['members','pending'] (blocked not provided by backend)
         )
-        /relations?status=value => {relations} (
+        /relations?status=value&type='relation' => {relations} (
           sidebar , users(value)
           choose from sidebar dynamic {based on param} (blocked , friends , blockedme , recieved , sent )
         )
@@ -21,7 +24,7 @@ const App : React.FC  = () =>{
           sidebar , users({messaged}) // edit the back to return them
           chatbox/:id
         )
-        /profile => {profile}(
+        /profile/:id => {profile}(
           sidebar , profileHeader , posts
         )
         /groups?type=['public' , 'mine' ] (
@@ -45,7 +48,35 @@ const App : React.FC  = () =>{
 
           posts contain Post component (title , body , reaction count )
         }
-        users component : query ?status= =>  ['blocked' ,'friends' ,'blockedme' ,'recieved' , 'sent' , 'groupMembers?id=3&status=blocked|members' ]
+        users component (
+           ?type= [ 'relation' , 'group' ] 
+           ?status= ['blocked' , 'friends' , 'blockedme' ,'recieved' , 'sent' ]
+           
+        )
+        
+        done:(components )
+          Posts
+          Users 
+          Header
+          Sidebar
+          ProfileHeader
+          CreatePost
+          Groups
+
+        todo:
+          edit AuthorImage to be more abstract 
+          
+          Post(with_comments) or change SinglePost to show render comments if comment button clicked in the same page
+          GroupHeader
+          Search
+          EditPost
+          EditPorfile
+          SinglePostEdit
+
+        to learn:
+        1. How to get image using fetch => https://stackoverflow.com/questions/46642960/authorization-header-in-img-src-link
+        2. Authentication with RTK  
+
   */
   return (
     <>

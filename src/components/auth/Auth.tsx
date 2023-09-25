@@ -16,13 +16,13 @@ const Auth : React.FC  = () =>{
       modalRef.current.style.display = 'block' ;
     }
   }
-  const Submit = async (e): Promise<void> =>{
+  const Submit = async (e : React.FormEvent<HTMLButtonElement> )  => {
     e.preventDefault() ;
     try{
       await login({email,password}).unwrap();
     }
     catch(err){
-
+      
     }
   }
   return (

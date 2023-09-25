@@ -15,9 +15,21 @@ export interface Comment {
       picturePath: string | null 
     }
 };
-
+export interface Reaction {
+    id:number; 
+    state: string ;
+    createdAt: Date ;
+    updatedAt: Date ;
+    userId: number ;
+    postId : number ;
+    User:{
+        id:number ; 
+        username:string;
+        picturePath:string;  
+    }
+}
 export interface Post {
-    onePost: {
+    post : {
         id:number,
         text:string,
         picture:string|null,
@@ -32,6 +44,7 @@ export interface Post {
             username:string,
             picturePath:string
         },
-        Comments: Comment[]
+        Comments: Comment[],
+        Reactions: Reaction[]
     }
 };
