@@ -1,26 +1,27 @@
 import React from 'react'
 import { link } from '../../types';
+import { Link } from 'react-router-dom';
 interface Props {
     links: link[]|undefined
 }
 const LinksCard : React.FC<Props> = ({links}) => {
-  links = ([]||links) ;
+  links = (links||[]) ;
+  
   return (
-    <>
-
-        <div> {links[0].container} </div>
+    <div className="links-card">
+        <div> {links[0].container} Container</div>
         {
             links.map((link)=>{
-                <>
-                    <div> 
-                        <a href={link.url}>
+            return (
+                    <div key={link.url}> 
+                        <Link to={link.url}>
                             {link.name}
-                        </a>
-                    </div>
-                </>
+                        </Link>
+                    </div>        
+                );
             })
         }
-    </>  
+    </div> 
   )
 }
 

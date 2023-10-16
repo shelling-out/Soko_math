@@ -28,23 +28,24 @@ export interface Reaction {
         picturePath:string;  
     }
 }
+export interface PostProperties {
+    id:number,
+    text:string,
+    picture:string|null,
+    createdAt: Date,
+    updatedAt: Date,
+    state:string,
+    userId:number,
+    commentsCount:number,
+    likesCount:number,
+    dislikesCount:number,
+    User:{
+        username:string,
+        picturePath:string
+    },
+    Comments: Comment[],
+    Reactions: Reaction[]
+}
 export interface Post {
-    post : {
-        id:number,
-        text:string,
-        picture:string|null,
-        createdAt: Date,
-        updatedAt: Date,
-        state:string,
-        userId:number,
-        commentsCount:number,
-        likesCount:number,
-        dislikesCount:number,
-        User:{
-            username:string,
-            picturePath:string
-        },
-        Comments: Comment[],
-        Reactions: Reaction[]
-    }
+    post : PostProperties ;
 };

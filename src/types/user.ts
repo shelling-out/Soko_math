@@ -6,8 +6,10 @@ export interface User {
     lastName?:string;
     birthday?:Date;
 };
-export interface UsersListProps {
-    status:string ;
-    type:string ;
-    page:string ;
+ 
+export interface relation {
+    userId: number ;
+    createdAt:Date;
+    updatedAt:Date;
+    state:string; 
 };

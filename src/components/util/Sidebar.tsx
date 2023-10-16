@@ -1,8 +1,8 @@
 import React from 'react'
-import { link } from '../types';
-import LinksCard from './util/LinksCard';
+import { link } from '../../types';
+import LinksCard from './LinksCard';
 interface Props {
-    content: link[]
+    // content: link[]
 }
 
 let getKey = (map:Map<string,link[]> , key:string ) : link[] =>{
@@ -10,11 +10,11 @@ let getKey = (map:Map<string,link[]> , key:string ) : link[] =>{
     return [...array];
 };
 
-const Sidebar : React.FC<Props> = ({content}) => {
-
+const Sidebar : React.FC<Props> = () => {
+  let content = [{url:'/home' , icon:'home',name:'home', container:'news'}] ;
   let sortedContent = new Map<string,link[]>() ;
   content.map((link)=>{
-    sortedContent.set(link.container ,  getKey(sortedContent,link.container) ) ;
+    sortedContent.set(link.container ,  [...getKey(sortedContent,link.container) , link ] ) ;
   });
   let keysIterator = sortedContent.keys() ; 
   let counter = 0 ; 
@@ -23,15 +23,15 @@ const Sidebar : React.FC<Props> = ({content}) => {
         keys.push(keysIterator.next().value);
         counter++ ; 
   }
+ 
   return (
-    <>
+    <div className="sidebar">
         {
-            
             keys.map((key)=>{
-                <LinksCard links={sortedContent.get(key)}></LinksCard>
+               return  <LinksCard links={sortedContent.get(key)} key={key}></LinksCard>
             })
         }
-    </>
+    </div>
   );
 }
 export default Sidebar ;

@@ -1,0 +1,33 @@
+export let RelationsLinks = [
+    {
+        url:'/relations?status=mySentRequests',
+        icon:'mySentRequests',
+        name:'mySentRequests',
+        container:'relations',
+    },
+    {
+        url:'/relations?status=myReceivedRequests',
+        icon:'myReceivedRequests',
+        name:'myReceivedRequests',
+        container:'relations',
+    },
+    {
+        url:'/relations?status=myFriends',
+        icon:'myFriends',
+        name:'myFriends',
+        container:'relations',
+    },
+    {
+        url:'/relations?status=myBlockedList',
+        icon:'myBlockedList',
+        name:'myBlockedList',
+        container:'relations',
+    },
+    {
+        url:'/relations?status=whoBlockedMeList',
+        icon:'whoBlockedMeList',
+        name:'whoBlockedMeList',
+        container:'relations',
+    },
+];
+ 

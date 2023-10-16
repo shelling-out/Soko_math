@@ -1,16 +1,21 @@
 import React, { useState ,  useRef } from 'react';
 import Register from './Register';
-import { useLoginMutation } from '../../features/user/userSlice';
-
+import { useLoginMutation } from '../../features/auth/userSlice';
+import { userSlice  , selectUser } from '../../features/auth/userSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { setUser } from '../../features/auth/userSlice';
 
 const Auth : React.FC  = () =>{
   const modalRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null) ; 
   const spanRef = useRef<HTMLSpanElement>(null) ;
   const [login , {isLoading}] = useLoginMutation() ;
-
-  const [email , setEmail] = useState<string>("") ;
-  const [password , setPassword] = useState<string>("");
+  const [email , setEmail] = useState<string>("john@gmail.com") ;
+  const [password , setPassword] = useState<string>("secretsecret");
+  const dispatch = useDispatch() ;
+  const user = useSelector( selectUser ) ;
+  
   const displayModal = ()=>{
     if(modalRef.current){
       modalRef.current.style.display = 'block' ;
@@ -19,10 +24,16 @@ const Auth : React.FC  = () =>{
   const Submit = async (e : React.FormEvent<HTMLButtonElement> )  => {
     e.preventDefault() ;
     try{
-      await login({email,password}).unwrap();
+      let res = await login({email,password}).unwrap();
+      // res.user.token = `Bearer ${res.user.token}`;
+      let user = { ...res.user }; 
+      user.token = `Bearer ${user.token}`;
+      localStorage.setItem('token' , user.token) ;
+      localStorage.setItem('id' , user.id) ;
+      dispatch(setUser(user));
     }
     catch(err){
-      
+      console.log(err) ;
     }
   }
   return (
@@ -42,6 +53,7 @@ const Auth : React.FC  = () =>{
               <input id="password" type="text" value={password} onChange={(e)=> setPassword(e.target.value )} />
               <button className='btn bg-blue txt-white' onClick={Submit} disabled={isLoading} > Login </button>
             </form>
+         
         </div>
       </div>
       

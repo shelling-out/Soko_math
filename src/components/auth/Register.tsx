@@ -1,5 +1,5 @@
 import React, { RefObject , useState } from 'react';
-import { useRegisterMutation } from '../../features/user/userSlice';
+import { useRegisterMutation } from '../../features/auth/userSlice';
 import { useNavigate } from 'react-router-dom';
 interface PropsTypes  {
     modalRef: RefObject<HTMLDivElement>;
