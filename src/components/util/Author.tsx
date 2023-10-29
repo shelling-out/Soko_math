@@ -10,21 +10,25 @@ type Props = {
 
 const Author:React.FC<Props> = ({ user }) => {
     let content ; 
+    
     if(user){
-        content =  <div className="author"> 
+        content =  <>
                         {/* <AuthorImage path={user.picturePath} size={'small'}/> */}
                         <Link to={`/profile/${user.id}`}>
-                            <h3 className="author-name"> {user.username} </h3>
+                            <h2 className="author-name"> {user.username} </h2>
                         </Link>
-                    </div>
+                </>
+                    
         
     }
     else {
-        content = "Loading..." ;
+        content =  "Loading..." ;
     }
     return (
         <>
+        <div className="author"> 
             {content}
+        </div>
         </>        
     )
 }

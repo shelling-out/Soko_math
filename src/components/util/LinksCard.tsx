@@ -9,14 +9,23 @@ const LinksCard : React.FC<Props> = ({links}) => {
   
   return (
     <div className="links-card">
-        <div> {links[0].container} Container</div>
+        <div className="links-card-header"> 
+            <h2>
+                {links[0].container} 
+            </h2>
+        </div>
+        
         {
             links.map((link)=>{
             return (
-                    <div key={link.url}> 
-                        <Link to={link.url}>
-                            {link.name}
-                        </Link>
+                    <div key={link.url} > 
+                        <div className="btn white-blue-theme">
+                            <Link to={link.url}>
+                                <h3>
+                                    {link.name}
+                                </h3>
+                            </Link>
+                        </div>
                     </div>        
                 );
             })

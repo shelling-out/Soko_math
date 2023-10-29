@@ -54,12 +54,25 @@ export const extendedApiUserSlice = apiSlice.injectEndpoints({
         method:'POST',
         body: user
       })
+    }),
+    editProfile: builder.mutation<string , RegisterRequestDAta> ({
+      query: ({body ,id }) => ({
+        url:`/user/profile/${id}`,
+        method:'PATCH',
+        body: body
+      })
+    }),
+    deleteProfile: builder.mutation<string , {id:number} > ({
+      query: ({id})=> ({
+        url:`/user/profile/${id}`,
+        method:'DELETE'
+      })
     })
   })
 });
 
 
 
-export const { useLoginMutation , useRegisterMutation } = extendedApiUserSlice ;
+export const { useLoginMutation , useRegisterMutation , useEditProfileMutation , useDeleteProfileMutation } = extendedApiUserSlice ;
 
 export const selectUser = (state : RootState) => state.user ;

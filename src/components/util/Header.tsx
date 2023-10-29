@@ -1,25 +1,33 @@
-import React from 'react'; 
+import React ,  { useState } from 'react'; 
 import {Link} from 'react-router-dom' ;
+import { useNavigate } from 'react-router-dom';
+
 const buttons = [
     {
         url:"/",
-        icon:"home"
+        icon:"🏘 Home"
     },
     {
         url:"/groups",
-        icon:"groups"
+        icon:"👥Groups"
     },
     {
         url:"/profile",
-        icon:"profile"
-    },{
-        url:'/settings',
-        icon:'settings'
+        icon:"👤Profile"
+    },
+    // {
+    //     url:'/settings',
+    //     icon:'⚙️Settings'
+    // },
+    {
+        url:'/relations?status=myFriends',
+        icon:'👫Relations'
     },
     {
-        url:'/relations?status=',
-        icon:'relations'
+        url:'/logout',
+        icon:'📤Logout'
     }
+    
 ];
 interface buttonType {
     url:string ;
@@ -27,21 +35,40 @@ interface buttonType {
 };
 
 const Header : React.FC = ()=>{
-    
+    const navigate = useNavigate() ; 
+    let [ search , setSerach ] = useState<string>("") ; 
+    const Search = (e)=>{
+        e.preventDefault() ;
+        navigate(`/result?q=${search}`) ;
+    }
+    if(document.documentURI.includes('/login')) {
+        return <img src="/robot.png" alt="App Icon"/> ;
+    }
+
     return (
+
         <>
-        <nav className='nav'>
-            <img src="" alt="App Icon"/> 
-            <input type="text" placeholder='start typing to search'/>   
-            {
-                buttons.map((button:buttonType)=>{
-                    return (
-                    <button className='btn ' key={button.url} >
-                        <Link to={`${button.url}`}> {button.icon} </Link>
-                    </button>);
-                    
-                })
-            }
+        <nav className='nav flex-container'>
+            <img src="/robot.png" alt="App Icon"/> 
+            <form onSubmit={Search}>
+                <div className="field">
+                    <input type="text"  placeholder='start typing to search' value={search} onChange={(e)=> setSerach(e.target.value)} />   
+                    <div className="line"></div>
+                </div>
+            </form>
+            <div>
+                <div>
+                {
+                    buttons.map((button:buttonType)=>{
+                        return (
+                        <button className='white-blue-theme txt-bg-1' key={button.url} >
+                            <Link to={`${button.url}`}> {button.icon} </Link>
+                        </button>);
+                        
+                    })
+                }
+                </div>
+            </div>
         </nav>
         </>
     )

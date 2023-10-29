@@ -5,8 +5,10 @@ import { userSlice  , selectUser } from '../../features/auth/userSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { setUser } from '../../features/auth/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Auth : React.FC  = () =>{
+  const navigate = useNavigate();
   const modalRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null) ; 
   const spanRef = useRef<HTMLSpanElement>(null) ;
@@ -15,7 +17,6 @@ const Auth : React.FC  = () =>{
   const [password , setPassword] = useState<string>("secretsecret");
   const dispatch = useDispatch() ;
   const user = useSelector( selectUser ) ;
-  
   const displayModal = ()=>{
     if(modalRef.current){
       modalRef.current.style.display = 'block' ;
@@ -25,12 +26,12 @@ const Auth : React.FC  = () =>{
     e.preventDefault() ;
     try{
       let res = await login({email,password}).unwrap();
-      // res.user.token = `Bearer ${res.user.token}`;
       let user = { ...res.user }; 
       user.token = `Bearer ${user.token}`;
       localStorage.setItem('token' , user.token) ;
       localStorage.setItem('id' , user.id) ;
       dispatch(setUser(user));
+      navigate('/') ; 
     }
     catch(err){
       console.log(err) ;
@@ -43,16 +44,25 @@ const Auth : React.FC  = () =>{
             SVG
         </div>
         <div className="grid-container-col">
-            <button id="myBtn" className="btn bg-blue txt-white" onClick={ displayModal } ref={btnRef}> Register</button>
+            
             <h1>Login into your account </h1>
             <form>
-              <label> Email </label>
-              <input id="email" type="text" value={email} onChange={(e)=> setEmail(e.target.value)}/>
-
-              <label> Password </label>
-              <input id="password" type="text" value={password} onChange={(e)=> setPassword(e.target.value )} />
-              <button className='btn bg-blue txt-white' onClick={Submit} disabled={isLoading} > Login </button>
+              <div className="field">
+                <div>
+                  <label> Email </label>
+                </div>
+                <input id="email" type="text" value={email} onChange={(e)=> setEmail(e.target.value)} />
+              </div>
+              <div className="field">
+                <div>
+                  <label> Password </label>
+                </div>
+                <input id="password" type="text" value={password} onChange={(e)=> setPassword(e.target.value )} />
+              </div>
+              <button className='btn bg-blue dark-blue-theme' onClick={Submit} disabled={isLoading} > Login </button>
             </form>
+            <h3> You don't have an account ? </h3>
+            <button id="myBtn" className="btn bg-blue dark-blue-theme" onClick={ displayModal } ref={btnRef}> Register</button>
          
         </div>
       </div>
@@ -65,12 +75,3 @@ const Auth : React.FC  = () =>{
 };
 
 export default Auth;
-
-/*
-  register -> success etc.. 
-  login -> {user}
-  state.endpoints
-
-
-  
-*/

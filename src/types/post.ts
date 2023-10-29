@@ -40,12 +40,20 @@ export interface PostProperties {
     likesCount:number,
     dislikesCount:number,
     User:{
+        id: number ,
         username:string,
         picturePath:string
     },
     Comments: Comment[],
-    Reactions: Reaction[]
+    Reactions: Reaction[],
+    reaction:{
+        id:number , 
+        state: string
+    }
 }
 export interface Post {
     post : PostProperties ;
 };
+export interface Posts {
+    posts:  PostProperties[]
+}

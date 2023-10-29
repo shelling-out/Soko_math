@@ -18,17 +18,24 @@ return '';
 const CreatePost : React.FC<Props>= ({type , id}) => {
   const user = getUser() ;
   let url = getURL(type , id ) ;
+  console.log(url) ;
   if(!user)return;
 
   const [text , setText] = useState<string>("");
   const [addPost , {isLoading}] = useAddPostMutation() ; 
   const savePost = async (e : React.FormEvent<HTMLButtonElement> )=>{
         e.preventDefault() ;
+        
         let body= {
           data: JSON.stringify({
             text:text 
           })
         };
+        if(type == 'group' ) {
+          body = {
+            text:text 
+          }
+        }
         try{
           await addPost({url:url, body: body }).unwrap();
           setText('');
@@ -39,9 +46,15 @@ const CreatePost : React.FC<Props>= ({type , id}) => {
   }
 
   return (
-    <div className="post">
-        <input type="text" value={text} onChange={(e)=> setText(e.target.value) } />
-        <button onClick={savePost}> Post </button>
+    <div className="post white-blue-theme">
+      <div className="flex-container">
+      <textarea placeholder="What's on your mind?"  value={text} onChange={(e)=> setText(e.target.value) } />
+      <button className="dark-blue-theme " onClick={savePost}>
+        <h4>
+          Post 
+        </h4>
+      </button>
+      </div>
     </div>
   )
 }

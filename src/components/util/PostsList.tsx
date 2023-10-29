@@ -1,37 +1,41 @@
 import React,{ useEffect } from 'react'
 import SinglePost from './SinglePost';
-import {  useGetPostsQuery  } from '../../features/posts/postSlice';
-import { selectUser } from '../../features/auth/userSlice';
-import { getUser } from './getUser';
+import {  useGetHomePostsQuery, useGetProfilePostsQuery ,useGetGroupPostsQuery  } from '../../features/posts/postSlice';
+
 import {  PostProperties } from '../../types';
 type Props = {
     type:string ; 
     id?:number ;
 };
-let getURL = (type: string  , id :number|undefined  ): string =>  {
+let getCallBack = (type: string  , id :number|undefined  )  =>  {
     switch(type){
         case 'news':
-            return '/home/news';
+            return useGetHomePostsQuery ;
         case 'group':
-            return  `/group/${id}/post`
+            return  useGetGroupPostsQuery ;
         case 'user':
-            return `/post/all/${id}`
+            return useGetProfilePostsQuery ;
     }
     return '';
 };
 const PostsList:React.FC<Props> = ({type , id }) => {
-    let url = getURL(type , id ) ;
-    let {data} = useGetPostsQuery({url: url }) ;
+    
+    let callBack = getCallBack(type , id ) ;
+    let {data} = callBack({id}) ;
+    console.log(data) ;
     let content ;
     if(data){
         content =  data?.map( (post: PostProperties) =>{
+            if(post.Post){
+                post = post.Post;
+            }
             return  (
-                <SinglePost post={post} postId={post.id }  key={post.id}/> 
+                <SinglePost post={post} postId={post.id } type={type} key={post.id}/>  
             );
         } );
     }
     else {
-        content = "Loding..."
+        content = "Loading..."
     }
   return (
     <>

@@ -7,7 +7,6 @@ import { store } from './app/store.ts'
 import { BrowserRouter } from "react-router-dom";
 import { postsSlice } from './features/posts/postSlice.ts'
 
-store.dispatch(postsSlice.endpoints.getPosts.initiate() );
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -1,10 +1,10 @@
 import React , {useEffect} from 'react'
-import { useGetGroupQuery } from '../../features/groups/groupsSlice';
+import { useDeleteGroupMutation } from '../../features/groups/groupsSlice';
 import { Link } from 'react-router-dom';
 import { Group } from '../../types';
+import { useDispatch } from 'react-redux';
 
-import { getHeaders } from './getHeaders';
-import { useSelector } from 'react-redux';
+
 
 type Props = {
     groupId: number; 
@@ -13,24 +13,43 @@ type Props = {
 
 const SingleGroup: React.FC<Props> = ({group , groupId}) => {
 
-    // const {data } = useGetGroupQuery({id:groupId}) ;
+    const [ deleteGroup ] = useDeleteGroupMutation() ; 
+    const Delete  = ()=>{
+        
+        try{
+            useDispatch(deleteGroup( {id:group.id} )).unwrap() ;
+        }
+        catch(err){
+            console.log(err) ;
+        }
+    }
     let content ;
     if(group){
-        content =   (<div className="group">
+        content =   (
+        <>
+        <div className='white-blue-theme post'>
                     <Link to={`/group/${groupId}`}>
-                        <h1> {group.groupName} </h1>
+                        <h1 className='blue'> {group.groupName} </h1>
                     </Link>
                     <h2> {group.groupDescription} </h2>
-                </div> )
+                    {
+                        group.GroupUser.state == 'Owner' || group.GroupUser.state == 'Admin' ?
+                        <button onClick={Delete} className="red-theme txt-bg-1"> delete </button>:
+                        ""
+                    }
+        </div>                    
+        </> )
     }
     else{
         content = <h1>"loading..."</h1>;
     }
     return (
         <>
-        {
-            content
-        }
+        <div className="group">
+            {
+                content
+            }
+        </div>
         </>
   )
 }

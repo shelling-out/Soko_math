@@ -10,25 +10,44 @@ import Relations from './components/Relations';
 import Profile from './components/Profile';
 import Groups from './components/Groups';
 import SinglePost from './components/util/SinglePost';
+import EditPostForm from './components/util/EditPostForm';
+import EditProfile from './components/util/EditProfile';
+import Logout from './components/util/Logout';
+import Search from './components/Search' ;
+import EditCommentForm from './components/util/EditCommentForm';
 const App : React.FC  = () =>{
 
   return (
     <>
       <Header></Header>
       <div className='container'>
-        <Sidebar></Sidebar>
-        <Routes>
-          <Route path="/" element={<News></News>}/>
-          <Route path='/login' element={<Auth/>} />
-          <Route path='/group/:id/*' element={<Group/>}/>
-          <Route path='/relations' element={<Relations/>} />
-          <Route path="/profile">
-            <Route index  element={<Profile />} ></Route>
-            <Route path=":id" element={<Profile/>} />
-          </Route>
-          <Route path="/groups" element={<Groups/> } />
-          <Route path="/post/:id" element={<SinglePost postId={null}/>} /> {/* edit this singlePostPage -> cz we need to add comments */}
-        </Routes>
+        <div className="container-col">
+            <Sidebar></Sidebar>
+        </div>
+        <div className="container-col">
+            <Routes>
+              <Route path="/" element={<News></News>}/>
+              <Route path="/result" element={<Search/>} />
+              <Route path='/login' element={<Auth/>} />
+              <Route path='/group/:groupId/*' element={<Group/>}/>
+              <Route path='/relations' element={<Relations/>} />
+              <Route path="/profile">
+                <Route index  element={<Profile />} ></Route>
+                <Route path=":id" element={<Profile/>} />
+                <Route path="edit" element={<EditProfile/>}/>
+              </Route>
+              <Route path="/groups" element={<Groups/> } />
+              <Route path='/post/:postId' >
+                  <Route index element={<SinglePost postId={null} type={'news'} />} /> 
+                  {/* edit this singlePostPage -> cz we need to add comments */}
+                  <Route path='edit' element={<EditPostForm type={'news'}/>} />
+              </Route>
+              <Route path="/comment">
+                  <Route path="edit/:commentId" element={<EditCommentForm />} ></Route>
+              </Route>
+              <Route path="/logout" element={<Logout></Logout>}></Route>
+            </Routes>
+        </div>
       </div>
     </>
   )
@@ -37,9 +56,22 @@ const App : React.FC  = () =>{
 export default App
 
 /*  
-        Routes:
+        LEFT:
+          -sidebar re-render 
+          -likes trigger
+          -errors handling & error messages
+          -chat
+          -Members(modifyRole) & Accepting Join Requests
+          -Images
+          -Show & hide comments
+          -Tags(for relations) not working 
+          -Types(write types)
+          -Loading... (empty) 
+          -Responsiveness
+          -SVGs
+          
 
-
+        Routes
         ----
         / => {news}(
           sidebar , createPost , postslist

@@ -1,7 +1,7 @@
 import React , {useEffect} from 'react'
 import SingleUser from './SingleUser';
 import { useSearchParams } from 'react-router-dom';
-import { useGetUsersQuery } from '../../features/relations/relationsSlice';
+import { useGetRelationsQuery, useGetGroupUsersQuery } from '../../features/relations/relationsSlice';
 import { getHeaders } from './getHeaders';
 import { useSelector } from 'react-redux';
 
@@ -10,15 +10,7 @@ type  Props = {
   id?: number ;
 
 }
-/*
-    /relationship/mySentRequests
-    /relationship/myReceivedRequests
-    /relationship/myFriends
-    /relationship/myBlockedList
-    /relationship/whoBlockedMeList
-    /group/${id}/join
-    /group/${id}/members
-*/
+
 const getURL = (type : string  , id: number|undefined  , status : string | null ) : string => {
     if(type == 'relations'){
         return `relationship/${status}` ;
@@ -28,17 +20,26 @@ const getURL = (type : string  , id: number|undefined  , status : string | null 
     }
 }
 const UsersList : React.FC<Props> = ({type,id}) => {
-  // useSearchParams  to get (status ) from search query
-  const [searchParams, setSearchParams] = useSearchParams() ;
+  
+  const [searchParams ] = useSearchParams() ;
   let status = searchParams.get("status")
   let url = getURL(type , id , status ) ; 
-  const {data: users , isSuccess } = useGetUsersQuery({url}) ;
+  let users ; 
+  if(type == 'relations') {
+    const {data } = useGetRelationsQuery({status}) ; 
+    users = data ;
+  }
+  else{
+    const {data} = useGetGroupUsersQuery({id , type : status }) ; 
+    users = data; 
+  }
   let content ;
-  if(isSuccess){
+  if(users){
     content = <div>
     { 
-      users.map((user)=>{
-          return <SingleUser user={user.user }></SingleUser>
+      users?.map((user)=>{
+          
+          return <SingleUser user={user.User  } relation={user}></SingleUser>
       })
     }
     </div>
@@ -48,10 +49,7 @@ const UsersList : React.FC<Props> = ({type,id}) => {
   }
   
     
-
-  //   }
-  // } , [isSuccess])
-  
+ 
   return (
      <>
         {content}

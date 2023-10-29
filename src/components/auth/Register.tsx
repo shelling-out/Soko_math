@@ -17,9 +17,10 @@ const Register : React.FC<PropsTypes> = ( {modalRef , spanRef }) =>{
   const [register , {isLoading} ] = useRegisterMutation(); 
 
   const hideModal = ()=>{
-    if(modalRef.current){
+    console.log(modalRef) ;
+    // if(modalRef){
       modalRef.current.style.display = 'none' ;
-    }
+    // }
   }
   const Submit = async (e: React.FormEvent<HTMLButtonElement> ) : Promise<void> =>{
     e.preventDefault() ;
@@ -57,23 +58,40 @@ const Register : React.FC<PropsTypes> = ( {modalRef , spanRef }) =>{
     <>
         <div id="myModal" className="modal" ref={modalRef}>
           <div className="modal-content">
-            <span className="close" onClick={hideModal} ref={spanRef}>&times;</span>
-              <form>
-                
-                <label> Name </label>
-                <input id="name" type="text" value={username} onChange={(e)=>setUsername(e.target.value)}/> 
-                <label> Email </label>
-                <input id="name" type="text" value={email} onChange={(e)=>setEmail(e.target.value)} />
-                <label> Password </label>
-                <input id="name" type="password" value={password} onChange={(e)=> setPassword(e.target.value)} />
-                <label> Confirm Password </label>
-                <input id="name" type="password" value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)}/>
+            <form>
+                <div className="field">
+                    <div>
+                        <label> Name </label>
+                    </div>
+                    <input id="name" type="text" value={username} onChange={(e)=>setUsername(e.target.value)}/> 
+                </div>
+                <div className="field">
+                    <div>
+                        <label> Email </label>
+                    </div>
+                    <input id="name" type="text" value={email} onChange={(e)=>setEmail(e.target.value)} />
+                </div>
+                <div className="field">
+                    <div>
+                        <label> Password </label>
+                    </div>
+                    <input id="name" type="password" value={password} onChange={(e)=> setPassword(e.target.value)} />
+                </div>
+                <div className="field">
+                    <div>
+                        <label> Confirm Password </label>
+                    </div>
+                    <input id="name" type="password" value={confirmPassword} onChange={(e)=> setConfirmPassword(e.target.value)}/>
+                </div>
                 <button onClick={Submit}> Submit </button>
                 <div className="error-msg">
                   {error}
                 </div>
-              </form>
-
+            </form>
+            <div>
+              SVG
+            </div>
+            <span className="close" onClick={hideModal} ref={spanRef}> &times; </span>
           </div>
         </div>
     </>

@@ -2,86 +2,64 @@ export let Default = [
         {
             url:'/',
             icon:'newsfeed',
-            container:'news',
             name:'newsfeed',
-        },
-        {
-            url:'/popular/groups',
-            icon:'popular groups',
-            name:'popular groups',
-            container:'news'
+            container:'News',
         },
         {
             url:'/chat',
             icon:'chat',
             name:'chat',
-            container:'more pages'
-        }
-    
-];
-export let  Friends = [
-    
-        {
-            url:'/friends',
-            icon:'friends',
-            name:'friends',
-            container:'friends'
-        },
-        {
-            url:'/friends/blocked',
-            icon:'blocked',
-            name:'blocked',
-            container:'friends'
-        },
-        {
-            url:'/friends/sent',
-            icon:'sent',
-            name:'sent',
-            container:'friends'
-        },
-        {
-            url:'/friends/recieved',
-            icon:'recieved',
-            name:'recieved',
-            container:'friends'
-        },
-        {
-            url:'/friends/blockedMe',
-            icon:'blocked me',
-            name:'blocked me',
-            container:'friends'
+            container:'More pages'
         }
 ];
 export let Group = [
     
         {
-            url:'members',
-            icon:'members',
-            name:'members',
-            container:'group'
+            url:`/group/${document.documentURI.split('group/')[1]}/users?status=members`,
+            icon:'Members',
+            name:'Members',
+            container:'Group'
         },
         {
-            url:'posts',
-            icon:'posts',
-            name:'posts',
-            container:'group'
-        },
-        {
-            url:'requests',
-            icon:'requests',
-            name:'requests',
-            container:'group'
-        },
-        {
-            url:'blocked' , // modify the backend
-            icon:'blocked',
-            name:'blocked',
-            container:'group'
-        },
-        {
-            url:'info',
-            icon:'info',
-            name:'info',
-            container:'group'
+            url:`/group/${document.documentURI.split('group/')[1]}/user?status=join`,
+            icon:'Join Requests',
+            name:'join Requests',
+            container:'Group'
         }
-]
+];
+
+export let Relations = [
+    
+    {
+        url:'/relations?status=myFriends',
+        icon:'myFriends',
+        name:'Friends',
+        container:'Relations',
+    },
+    {
+        url:'/relations?status=mySentRequests',
+        icon:'mySentRequests',
+        name:'Sent Requests',
+        container:'Relations',
+    },
+    {
+        url:'/relations?status=myReceivedRequests',
+        icon:'myReceivedRequests',
+        name:'Received Requests',
+        container:'Relations',
+    },
+    {
+        url:'/relations?status=myBlockedList',
+        icon:'BlockedList',
+        name:'Blocked People',
+        container:'Relations',
+    }
+    // ,
+    // {
+    //     url:'/relations?status=whoBlockedMeList',
+    //     icon:'whoBlockedMeList',
+    //     name:'People Blocked Me',
+    //     container:'relations',
+    // }
+];
+ 

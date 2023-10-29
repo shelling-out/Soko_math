@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/auth/userSlice";
 export const getUser = () => {
-    return useSelector(selectUser) ;
+    return  { id: localStorage.getItem('id') , token: localStorage.getItem('token') } ; 
 };

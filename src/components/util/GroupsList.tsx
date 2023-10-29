@@ -9,8 +9,6 @@ import { useGetMyGroupsQuery } from '../../features/groups/groupsSlice'
 type Props = {}
 
 const GroupsList: React.FC<Props> = () => {
-//   const [searchParams, setSearchParams] = useSearchParams() ;
-//   const type = searchParams.get("type"); // now only my grups avaiable (need to edit back-end)
   const {data: groups } = useGetMyGroupsQuery({});
   
   let content ; 
@@ -18,7 +16,7 @@ const GroupsList: React.FC<Props> = () => {
     content = groups?.map((group)=>{
             return (
                 <>
-                    <SingleGroup group={group} groupId={group.id} />
+                  <SingleGroup group={group} groupId={group.id} />
                 </>
             )
         });
