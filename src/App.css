@@ -8,25 +8,33 @@
 }
 
 .white-blue{
-  color:var(--white-blue);
+  color:var(--white-blue)!important;
 }
 .dark-blue{
-  color:var(--dark-blue) ; 
+  color:var(--dark-blue)!important ; 
+}
+.grey{
+  background-color: grey;
+}
+.dark-grey{
+  background-color: rgb(63, 61, 61);
 }
 .yellow{
-  color:yellow;
+  background-color:yellow!important;
 }
 .red{
-  color: red ;
+  background-color: red!important ;
 }
 .blue{
-  color: blue ; 
+  background-color: blue!important ; 
 }
 .white{
-  color:white ;
+  background-color:white!important;
 }
-
-
+.grid{
+  display: grid;
+  grid-template-columns: auto auto auto auto auto ;
+}
 body{
   background-color: var(--dark-blue);
 }
@@ -51,7 +59,9 @@ label{
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
  
 }
-
+.hide{
+  display:none ;
+}
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
@@ -71,6 +81,10 @@ label{
   font-size: 50px;
   font-weight: bold;
 }
+.center {
+  display:grid;
+  justify-content: center;
+}
 
 .close:hover, .close:focus {
   color: black;
@@ -85,19 +99,21 @@ a {
 
 
 button{
-  border-radius: .4rem;
+  /* border-radius: .4rem; */
   background-color: white ;
   border-style: none ;
-  margin: .2rem;
+  /* margin: .2rem; */
   font-size: 1rem;
+  width: 5rem;
+  height: 5rem;
+  
 }
-
-button:hover{
-  background-color:var(--hover-color) ;
+button:focus{
+  outline:none;
 }
 .grid-container{
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto auto ;
 }
 /* Containers */
 .container{
@@ -109,6 +125,28 @@ button:hover{
   display:flex ;
   align-items:center ; 
   justify-content:space-between;
+}
+.flex-container-2{
+  display:flex ;
+  align-items:center ; 
+  justify-content:flex-start;
+}
+.flex-container-2 span{
+  margin: .3rem;
+}
+.flex-container-2 span img {
+  border-radius: 2rem;
+}
+
+.flex-container-center{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-img{
+  width:20rem;
+  height:20rem;
+  border-radius: 10rem;;
 }
 
 /* Header */ 
@@ -122,10 +160,7 @@ button:hover{
   text-align: center;
   padding:0.1rem;
 }
-.btn:hover{
-  background-color:var(--hover-color)!important ;
-  
-}
+
 
 .links-card-header{
   text-align:center;
@@ -133,6 +168,12 @@ button:hover{
 }
 .btn{
   background-color: yellow;
+}
+/* author */
+.author-img{
+  width:50px ; 
+  height: 50px;
+  
 }
 /* POST */
 .post{
